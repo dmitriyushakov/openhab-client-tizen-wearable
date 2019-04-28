@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<title>Wearable UI</title>
+	<link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.min.css">
+	<link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="lib/tau/wearable/theme/default/tau.circle.min.css">
+	<link rel="stylesheet"  href="css/style.css">
+	<link rel="stylesheet"  href="css/custom.css">
+	<script src="lib/kellycolorpicker/html5kellycolorpicker.js"></script>
+	<script type="text/javascript" src="lib/jquery/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="lib/knockout/knockout-3.4.2.js"></script>
+	<script src="js/openhab-client.js"></script>
+	<script src="language.js"></script>
+	<script src="js/openhab-wgt-progressbar.js"></script>
+	<script src="js/openhab-wgt-colorpicker.js"></script>
+	<script src="js/openhab-server-settings.js"></script>
+</head>
+<body>
+	<div class="ui-page ui-page-active ui-scroll-on ui-snap-container ko-ready-page" id="main" data-bind="openhabPageId:$data.id">
+		<header class="ui-header">
+			<h2 class="ui-title" data-bind="text: title"></h2>
+		</header>
+		<div class="ui-content">
+			<button type="button" class="ui-more more-options-btn" style="z-index:1">More Options</button>
+			<!-- ko if: ($data.fail===true)||($data.loaded===false) -->
+		    <div class="content-padding" data-bind="text: $data.message"></div>
+		    <!--  /ko -->
+			<ul class="ui-listview openhab-widgets-list" style="display: none">
+				<!-- ko if: ($data.fail!==true)||($data.loaded!==false) -->
+				<!-- ko foreach: $data.widgets?$data.widgets:[] -->
+				<!--  ko if: type=="Switch" && mappings.length==0 -->
+				<li class="li-has-toggle">
+					<label>
+						<span data-bind="text: label"></span>
+						<div class="ui-toggleswitch">
+							<input type="checkbox" class="ui-switch-input" data-bind="event: { change: function(data,event){sendCommand(data,event.currentTarget.checked?'ON':'OFF')} },openhabWgt: widgetId,checked: item.state==='ON'" openhab-widget-type="SimpleSwitch">
+							<div class="ui-switch-button"></div>
+						</div>
+					</label>
+				</li>
+				<!--  /ko -->
+				<!--  ko if: (type=="Switch" || type=="Selection") && mappings.length>0 -->
+				<li class="li-has-toggle" data-bind="click:function(data){openMultibuttonRadioPage(data.widgetId)}">
+					<span data-bind="text: label"></span>
+					<span class="ui-li-sub-text li-text-sub" data-bind="text: extractMappingValue(widgetId),openhabWgt: widgetId, visisble:item.state!=='NULL'" openhab-widget-type="SwitchSub"></span>
+				</li>
+				<!--  /ko -->
+				<!--  ko if: type=="Text" -->
+				<li data-bind="click: openLink">
+					<!--  ko if: widgetHaveSubText($data) -->
+					<span data-bind="text: extractWidgetLabel($data)"></span>
+					<span class="ui-li-sub-text li-text-sub" data-bind="text: extractWidgetSubText($data),openhabWgt: widgetId" openhab-widget-type="TextSub"></span>
+					<!--  /ko -->
+					<!--  ko ifnot: widgetHaveSubText($data) -->
+					<span data-bind="text: label"></span>
+					<!--  /ko -->
+				</li>
+				<!--  /ko -->
+				<!--  ko if: type=="Slider" -->
+				<li data-bind="click: function(data){openProgressbarForSlider(data.widgetId)}">
+					<span data-bind="text: label"></span>
+					<span class="ui-li-sub-text li-text-sub"><span data-bind="text: item.state,openhabWgt: widgetId" openhab-widget-type="Slider"></span> %</span>
+				</li>
+				<!--  /ko -->
+				<!--  ko if: type=="Setpoint" -->
+				<li data-bind="click: function(data){openProgressbarForSlider(data.widgetId)}">
+					<span data-bind="text: label"></span>
+					<span class="ui-li-sub-text li-text-sub" data-bind="text: item.state,openhabWgt: widgetId" openhab-widget-type="Setpoint"></span>
+				</li>
+				<!--  /ko -->
+				<!--  ko if: type=="Colorpicker" -->
+				<li data-bind="click: function(data){openColorpicker(data.widgetId)}">
+					<span><span data-bind="text: label"></span> <span data-bind="style:{color:(item.state==='NULL')?'#ffffff':OHColorToCSS(item.state)},openhabWgt:widgetId" openhab-widget-type="Colorpicker">&#x25CF;</span></span>
+				</li>
+				<!--  /ko -->
+				<!--  /ko -->
+				<!--  /ko -->
+			</ul>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
+<script type="text/javascript" src="js/circle-helper.js"></script>
+<script src="js/app.js"></script>
+<script>
+	loadMainPage();
+</script>
+</html>

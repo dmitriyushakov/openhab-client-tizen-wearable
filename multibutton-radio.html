@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<title>Wearable UI</title>
+	<link rel="stylesheet"  href="lib/tau/wearable/theme/default/tau.min.css">
+	<link rel="stylesheet"  href="css/style.css">
+</head>
+<body>
+	<div class="ui-page" id="multibutton-radio-page">
+		<header class="ui-header">
+			<h2 class="ui-title" data-bind="text:label"></h2>
+		</header>
+		<div class="ui-content">
+			<ul class="ui-listview" data-bind="foreach:mappings">
+				<li class="li-has-radio">
+					<label>
+						<span data-bind="text:label"></span>
+						<input type="radio" name="radio-sample" data-bind="checked:$parent.item.state==command,value:command"/>
+					</label>
+				</li>
+			</ul>
+		</div>
+		<script>
+			if(multibuttonRadioPageCallback)multibuttonRadioPageCallback();
+		</script>
+	</div>
+</body>
+<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
+</html>

@@ -1,0 +1,9 @@
+input.ui-text-entry {
+	width:70%;
+	border:0px;
+	background-color:#333333;
+	padding:1px 15px;
+	border-radius:25px;
+	color:white;
+	height:50px
+}

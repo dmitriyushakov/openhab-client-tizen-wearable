@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://yourdomain/OpenhabClient" version="0.0.3" viewmodes="maximized">
+    <access origin="*" subdomains="true"></access>
+    <tizen:application id="4j526Dwpps.OpenhabClient" package="4j526Dwpps" required_version="2.3"/>
+    <content src="items-list.html"/>
+    <description>Allow to control your OpenHAB instance</description>
+    <feature name="http://tizen.org/feature/screen.size.normal"/>
+    <feature name="tizen.org/feature/network.internet"/>
+    <icon src="icon.png"/>
+    <name>OH Client</name>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+    <tizen:profile name="wearable"/>
+    <tizen:setting background-support="enable" encryption="disable" hwkey-event="enable"/>
+</widget>

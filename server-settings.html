@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<title>Wearable UI</title>
+	<link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.min.css">
+	<link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="lib/tau/wearable/theme/default/tau.circle.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="ui-page" id="server-settings">
+		<header class="ui-header">
+			<h2 class="ui-title">Server</h2>
+		</header>
+		<div class="ui-content">
+			<div class="textinput-box">
+                <label for="server-address">Server address:</label>
+                <input type="text" id="server-address" data-clear-btn="true" class="ui-text-entry"/>
+            </div>
+			<div class="textinput-box">
+                <label for="server-username">User name:</label>
+                <input type="text" id="server-username" data-clear-btn="true" class="ui-text-entry"/>
+            </div>
+			<div class="textinput-box">
+                <label for="server-password">Password:</label>
+                <input type="password" id="server-password" data-clear-btn="true" class="ui-text-entry"/>
+            </div>
+		</div>
+		<script>
+		serverSettingsPageCallback();
+		</script>
+	</div>
+</body>
+<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
+</html>
